@@ -1,4 +1,4 @@
-#include "module.h"
+#include "chaines.h"
 
 // donne la longueur d'une chaîne
 int length(char* string){
