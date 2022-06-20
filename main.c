@@ -13,7 +13,8 @@ int main(){
     char *stringCopied = malloc(100*sizeof(char)); // alloue une zone de mémoire
     char *stringToCopy = "Je m'appelle Margaux";
     copyString(stringToCopy, stringCopied);
-    printf("%s", stringCopied);
+    int countOfE = numberOfE(stringCopied);
+    printf("La chaîne '%s' contient %d 'e' !", stringCopied, countOfE);
 
     return 0;
 }
