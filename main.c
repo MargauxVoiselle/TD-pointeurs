@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "module.h"
+#include "chaines.h"
 
 int main(){
     // exercice 1
