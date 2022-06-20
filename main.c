@@ -3,6 +3,7 @@
 #include "chaines.h"
 #include "listes.h"
 
+
 int main(){
     // exercice 1
     // char *string = "Salut";
