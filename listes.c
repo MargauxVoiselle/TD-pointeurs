@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 #include "listes.h"
 #define N 100
 
@@ -38,5 +39,24 @@ int* append(int* list, int element){
         *(newList + i) = *(list + i);
     }
     *(newList + *newList) = element; // on insère l'élément en dernière position
+    return newList;
+}
+
+int len(int* list){
+    return *list;
+}
+
+int get(int* list, int index){
+    assert (index <= *list); // vérification qu'on demande bien un élément de la liste
+    return *(list + index);
+}
+
+int* slice(int* list, int lower, int upper){
+    assert (upper <= *list);
+    int* newList = malloc(N*sizeof(int));
+    *newList = upper - lower + 1;
+    for (int i = 0 ; i < *newList ; i++){
+        *(newList + 1 + i) = *(list + lower + i);
+    }
     return newList;
 }
