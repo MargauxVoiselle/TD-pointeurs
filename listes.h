@@ -25,3 +25,4 @@ int* insert(int* list, int element);
 int* append(int* list, int element);
 int get(int* list, int index);
 int* slice(int* list, int lower, int upper);
+int* range(int lower, int upper);

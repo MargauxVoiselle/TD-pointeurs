@@ -65,6 +65,7 @@ int* slice(int* list, int lower, int upper){
     return newList;
 }
 
+// retourne une liste avec tous les entiers compris entre lower et upper
 int* range(int lower, int upper){
     int *list = malloc(N*sizeof(int));
     *list = upper - lower + 1;
@@ -169,4 +170,21 @@ int* slice(int* list, int lower, int upper){
         *(newList + 1 + i) = *(list + lower + i);
     }
     return newList;
+}
+
+//
+int* range(int lower, int upper){
+    // Calcul de la capacité et allocation de la mémoire
+    int length = upper - lower + 1, capacity = 8;
+    for (int i = 0 ; i < length ; i++){
+        capacity = capacity * 2;
+    }
+    int *list = malloc(capacity*sizeof(int));
+
+    // Écriture dans la liste
+    *list = (capacity << 16) + length;
+    for (int i = 0 ; i < length ; i++){
+        *(list + 1 + i) = lower + i;
+    }
+    return list;
 }

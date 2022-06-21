@@ -42,25 +42,27 @@ int main(){
     // print_list(list);
 
     // exercice 4
-    int *list = create_list();
-    int capacity = get_capacity(list);
-    printf("La capacité de la liste est %d\n", capacity);
-    int length = len(list);
-    printf("La liste contient %d éléments\n", length);
+    // int *list = create_list();
+    // int capacity = get_capacity(list);
+    // printf("La capacité de la liste est %d\n", capacity);
+    // int length = len(list);
+    // printf("La liste contient %d éléments\n", length);
+    // print_list(list);
+
+    // int *newList = insert(list, 3);
+    // newList = insert(newList, 4);
+    // print_list(newList);
+
+    // newList = append(newList, 1);
+    // print_list(newList);
+
+    // newList = slice(newList, 1, 2);
+    // print_list(newList);
+
+    // int element = get(newList, 2);
+    // printf("%d", element);
+    int* list = range(1, 10);
     print_list(list);
-
-    int *newList = insert(list, 3);
-    newList = insert(newList, 4);
-    print_list(newList);
-
-    newList = append(newList, 1);
-    print_list(newList);
-
-    newList = slice(newList, 1, 2);
-    print_list(newList);
-
-    int element = get(newList, 2);
-    printf("%d", element);
 
     return 0;
 }
