@@ -31,6 +31,12 @@ int main(){
     newList = insert(newList, 10);
     printf("La nouvelle liste est :\n");
     print_list(newList);
+    int length = len(newList);
+    printf("La longueur de la liste est %d\n", length);
+    int element = get(newList, 2);
+    printf("Le deuxième élément de la liste est %d\n", element);
+    int* otherList = slice(newList, 2, 4);
+    print_list(otherList);
 
     return 0;
 }
