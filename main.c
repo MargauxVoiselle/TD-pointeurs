@@ -2,19 +2,17 @@
 #include <stdlib.h>
 #include "chaines.h"
 #include "listes.h"
+#include "structures.h"
 
-
-int main(){
+int main()
+{
     /*
-    // exercice 1
+    // exercice sur les chaines
     char *string = "Salut";
     int lengthString = 0;
     lengthString = length(string);
     printf("La longueur de la chaîne '%s' est %d", string, lengthString);
-    */
 
-    /*
-    exercice 2
     char *stringCopied = malloc(100*sizeof(char)); // alloue une zone de mémoire
     char *stringToCopy = "Je m'appelle Margaux";
     copyString(stringToCopy, stringCopied);
@@ -25,7 +23,7 @@ int main(){
     */
 
     /*
-    // exercice 3
+    // exercice sur les listes première version
     int *list = create_list();
     printf("La liste de départ est :\n");
     print_list(list);
@@ -48,7 +46,7 @@ int main(){
     */
 
     /*
-    // exercice 4
+    // exercice sur les listes seconde version
     int *list = create_list();
     print_list(list);
     int capacity = get_capacity(list);
@@ -75,6 +73,12 @@ int main(){
     int* list = range(1, 10);
     print_list(list);
     */
+
+    // exercice sur les structures
+    Date *anniversaire_papa = create_date(3, 10, 1970);
+    print_date(anniversaire_papa);
+    Date *anniversaire_moi = create_date(31, 1, 2002);
+    print_date(anniversaire_moi);
 
     return 0;
 }
