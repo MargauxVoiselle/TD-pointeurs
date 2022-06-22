@@ -1,3 +1,6 @@
+#ifndef LISTES_H
+
+#define LISTES_H
 #define SECOND_VERSION
 
 #ifdef FIRST_VERSION
@@ -34,5 +37,7 @@ int* append(int* list, int element);
 int get(int* list, int index);
 int* slice(int* list, int lower, int upper);
 int* range(int lower, int upper);
+
+#endif
 
 #endif
