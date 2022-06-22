@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "listes.h"
+
+#ifdef FIRST_VERSION
 #define N 100
 
-/*
 // créé une liste vide
 int* create_list(){
     int* list = malloc(N*sizeof(int));
@@ -74,13 +75,16 @@ int* range(int lower, int upper){
     }
     return list;
 }
-*/
+
+#endif
 
 /*
  * Nouvelle stratégie pour faire des listes : première case contiendra
  * la capacité de la liste sur les 16 bits à gauche et la taille de la
  *liste sur les 16 bits à droite
 */
+
+#ifdef SECOND_VERSION
 
 // créé une liste vide avec 8 cases en mémoire par défault
 int* create_list(){
@@ -112,32 +116,56 @@ void print_list(int *list){
 
 // insère un élément en début de liste et retourne la liste
 int* insert(int* list, int element){
-    // Réallocation de la mémoire
-    int length = len(list) + 1, capacity = get_capacity(list) * 2;
-    int* newList = malloc(capacity*sizeof(int)); // on double la capacité
+    int length = len(list) + 1, capacity = get_capacity(list);
+    // Vérification si on dépasse la capacité de la liste
+    if (length >= capacity){ // si on dépasse la capacité de la liste
+        // Réallocation de la mémoire
+        capacity = capacity * 2;
+        int* newList = malloc(capacity*sizeof(int)); // on double la capacité
 
-    // Écriture dans la liste
-    *newList = (capacity << 16) + length; // on incrémente la taille de la liste
-    *(newList + 1) = element; // on insère l'élément en première position
-    for (int i = 1 ; i <= length ; i++){ // on rajoute le reste de la liste
-        *(newList + 1 + i) = *(list + i);
+         // Écriture dans la liste
+        *newList = (capacity << 16) + length; // on incrémente la taille de la liste
+        *(newList + 1) = element; // on insère l'élément en première position
+        for (int i = 1 ; i <= length ; i++){ // on rajoute le reste de la liste
+            *(newList + 1 + i) = *(list + i);
+        }
+        return newList;
     }
-    return newList;
+    else { // si on ne dépasse pas la capacité de la liste
+        // Écriture dans la liste
+        *list = (capacity << 16) + length; // on incrémente la taille de la liste
+        for (int i = 0 ; i < length ; i++){ // on rajoute le reste de la liste
+            *(list + length + 1 - i) = *(list + length - i);
+        }
+        *(list + 1) = element; // on insère l'élément en première position
+        return list;
+    }
 }
+
 
 // insère un élément en queue de liste et retourne la liste
 int* append(int* list, int element){
-    // Réallocation de la mémoire
-    int length = len(list) + 1, capacity = get_capacity(list) * 2;
-    int* newList = malloc(capacity*sizeof(int)); // on double la capacité
+    int length = len(list) + 1, capacity = get_capacity(list);
+    // Vérification si on dépasse la capacité de la liste
+    if (length >= capacity){ // si on dépasse la capacité de la liste
+        // Réallocation de la mémoire
+        capacity = capacity * 2;
+        int* newList = malloc(capacity*sizeof(int)); // on double la capacité
 
-    // Écriture dans la nouvelle liste
-    *newList = (capacity << 16) + length; // on incrémente la taille de la liste
-    for (int i = 1 ; i <= length ; i++){ // on rajoute la liste initiale
-        *(newList + i) = *(list + i);
+        // Écriture dans la nouvelle liste
+        *newList = (capacity << 16) + length; // on incrémente la taille de la liste
+        for (int i = 1 ; i <= length ; i++){ // on rajoute la liste initiale
+            *(newList + i) = *(list + i);
+        }
+        *(newList + length) = element; // on insère l'élément en dernière position
+        return newList;
     }
-    *(newList + length) = element; // on insère l'élément en dernière position
-    return newList;
+    else { // si on ne dépasse pas la capacité de la liste
+        // Écriture dans la nouvelle liste
+        *list = (capacity << 16) + length; // on incrémente la taille de la liste
+        *(list + length) = element; // on insère l'élément en dernière position
+        return list;
+    }
 }
 
 // retourne l'élément de la liste à l'indice donné
@@ -154,30 +182,23 @@ int* slice(int* list, int lower, int upper){
     int length = len(list);
     assert (upper <= length);
 
-    // Réallocation de la mémoire selon le nombre d'entiers qu'il reste
-    int countOfIntDeleted = length - (upper - lower + 1);
-    int capacity = get_capacity(list);
-    int newCapacity = capacity;
-    for (int i = 0 ; i < countOfIntDeleted ; i++){
-        newCapacity = newCapacity / 2;
-    }
-    int* newList = malloc(newCapacity*sizeof(int));
-
     // Écriture dans la nouvelle liste
+    int capacity = get_capacity(list);
+    int* newList = malloc(capacity*sizeof(int));
     length = upper - lower + 1;
-    *newList = (newCapacity << 16) + length;
+    *newList = (capacity << 16) + length;
     for (int i = 0 ; i < length ; i++){
         *(newList + 1 + i) = *(list + lower + i);
     }
     return newList;
 }
 
-//
+// retourne une liste avec les entiers compris entre lower et upper
 int* range(int lower, int upper){
     // Calcul de la capacité et allocation de la mémoire
     int length = upper - lower + 1, capacity = 8;
-    for (int i = 0 ; i < length ; i++){
-        capacity = capacity * 2;
+    while (length > capacity){
+        capacity *= 2;
     }
     int *list = malloc(capacity*sizeof(int));
 
@@ -188,3 +209,5 @@ int* range(int lower, int upper){
     }
     return list;
 }
+
+#endif
