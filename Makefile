@@ -1,5 +1,5 @@
-main : main.o chaines.o listes.o structures.o
-	gcc -o main main.o chaines.o listes.o structures.o
+main : main.o chaines.o listes.o structures.o tests.o
+	gcc -o main main.o chaines.o listes.o structures.o tests.o
 
 main.o : main.c
 	gcc -c main.c
@@ -12,6 +12,9 @@ listes.o : listes.c listes.h
 
 structures.o : structures.c structures.h
 	gcc -c structures.c
+
+tests.o : tests.c tests.h structures.h
+	gcc -c tests.c
 
 run : main
 	./main
